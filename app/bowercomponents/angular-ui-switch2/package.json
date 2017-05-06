@@ -1,0 +1,35 @@
+{
+  "name": "angular-ui-switch2",
+  "version": "0.1.0",
+  "description": "iOS style switch directive for AngularJS",
+  "main": "angular-ui-switch.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kpytang/angular-ui-switch2.git"
+  },
+  "keywords": [
+    "angular",
+    "angularjs",
+    "ui",
+    "directive",
+    "switch",
+    "on",
+    "off",
+    "button",
+    "checkbox",
+    "form"
+  ],
+  "author": "kpytang <kpytang@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kpytang/angular-ui-switch/issues"
+  },
+  "homepage": "https://github.com/kpytang/angular-ui-switch",
+  "devDependencies": {
+    "minify": "^1.4.19",
+    "uglifyjs": "^2.4.10"
+  }
+}

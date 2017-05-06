@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+	<div class="container-fluid"> 
+	<div class="row" style="display: block; border: 1px dashed;line-height:30px;">
+	  All Categories --> Menu
+	</div>
+
+		<div class="row" style="margin-top: 10px;">
+			<div class="col-xs-12">
+				<button type="button" class="btn btn-primary pull-right"
+					data-toggle="modal" data-target="#myModal">
+					<span style="padding-right: 2px;">Add</span><i class="fa fa-plus"
+						aria-hidden="true"></i>
+				</button>
+			</div>
+		</div> 
+
+
+      <div class="row" style="margin-top: 10px;">
+            <div class="col-xs-3">
+            	<span>Cook Name:-</span>
+                <autocomplete ng-model="cookmodel" data="menu.cookInfo" on-type="menu.searchCook" on-select="menu.cookSelect" style="color: black;line-height: 100%;"></autocomplete>
+            </div>
+			<div class="col-xs-3">
+                 <span>Catagory Name:-</span>
+				<autocomplete ng-model="catagorymodel" data="menu.catagoryInfo" on-type="menu.searchCatagory" on-select="menu.catagorySelect" style="color: black;line-height: 100%;"></autocomplete>
+			</div>
+            <div class="col-xs-4">
+                <button type="button" class="btn btn-primary" style="margin-top: 18px;" ng-click="menu.getMenu();">
+					<span>Get Menus</span>
+				</button>
+				<button type="button" class="btn btn-primary" style="margin-top: 18px;" ng-click="menu.clearMenu();">
+					<span>clear</span>
+				</button>
+			</div>
+		</div> 
+
+
+		<div class="portlet-body"> 
+			<div style="margin-top: 10px;">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>S.No</th>
+							<th>Item Name</th>
+							<th>Catagory</th>
+							<th>Cook Name</th>
+							<th>Description</th>
+							<th>Price</th>
+							<th>Image</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-ng-repeat="menu1 in menu.menuList">
+							<td class="bold-text"><span>{{menu.sno+$index +1}}</span></td>
+							<td class="bold-text"><span ng-bind="menu1.itemName"></span></td>
+							<td class="bold-text"><span ng-bind="menu1.menuCatagoryName"></span></td>
+							<td class="bold-text"><span ng-bind="menu1.cookName"></span></td>
+							<td class="bold-text"><span ng-bind="menu1.description"></span></td>
+							<td class="bold-text">
+							                 <table>
+							                 	  <tbody>
+							                 	  	   <tr data-ng-repeat="unitPrice in menu1.cmsMenuPriceBeanList">
+							                 	  	   	  <td>
+							                 	  	   	     <div style="display: inline-block;">
+							                 	  	   	     	  <span>{{unitPrice.unitName}}</span>
+							                 	  	   	  	      <span>{{unitPrice.price}}</span>
+							                 	  	   	     </div>
+							                 	  	   	  </td>
+							                 	  	   </tr>
+							                 	  </tbody>
+							                 </table>
+							</td>
+							<td class="bold-text" style="width: 10%;">
+							<span ng-if="menu1.menuImagePath.length>0">	
+                             <img ng-src="{{menu1.imageURL}}" style="width:100%;">
+							</span></td>
+							<td align="center"><span> <a
+									href=""
+									ng-click="menu.editMenu(menu1);"
+									data-toggle="modal" data-target="#editmodel"> <i
+										class="fa fa-edit"></i></a>
+							</span> <span> <a href=""
+									ng-click="menu.deleteMenu(menu1.id);"> <i
+										class="fa fa-times" aria-hidden="true"></i></a>
+							</span></td>
+						</tr>
+					</tbody>
+				</table>
+
+         <ul class="pull-right" id="pagination-demo" class="pagination-sm"></ul>
+
+			</div>
+	</div>
+	</div> 
+
+		<!-- Modal -->
+	<div class="modal fade" id="myModal" role="dialog" style="color: black;">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Add Menu</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label class="control-label">Item Name:</label> <input
+							type="text" class="form-control" placeholder="Enter item Name."
+							ng-model="menu.addMenu.itemName">
+					</div>
+					<div class="form-group">
+						<label class="control-label">Description:</label> <input type="text"
+							class="form-control" placeholder="Enter item description."
+							ng-model="menu.addMenu.description">
+					</div>
+
+                    <div class="form-group">
+                      <div  data-ng-repeat="choice in choices">
+					      	<select  id="{{choice.id+'select'}}" ng-model="choice.unitName">
+							    <option 
+							            ng-repeat="menuUnit in menu.getMenuUnitList"
+							            value="{{menuUnit.unit}}" >
+							      {{menuUnit.unit}}
+							    </option>
+							</select>
+					      <input type="text" name="" ng-model="choice.price" placeholder="Enter price" id="{{choice.id+'input1'}}">
+					      <button class="remove" ng-show="$last" ng-click="removeChoice()">-</button>
+					   </div>
+					   <button class="addfields" ng-click="addNewChoice('','Half','')">Add Unit</button>
+					</div> 
+
+					<div class="form-group">
+						<div>
+                             <input type="file" file-model="myFile"  class="btn btn-default btn-file"/>
+                        </div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear();">Close</button>
+					<button type="button" data-dismiss="modal" class="btn btn-default"
+						ng-click="menu.add();">Add</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+		<!-- Edit Modal -->
+	<div class="modal fade" id="editmodel" role="dialog" style="color: black;">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Update Menu</h4>
+				</div>
+				<div class="modal-body">
+				    <div class="form-group">
+						<label class="control-label">Cook Name:</label> 
+						<input
+							type="text" class="form-control" placeholder="Enter cook Name."
+							ng-model="menu.editedMenu.cookName" readonly>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Catagory Name:</label> 
+						<input
+							type="text" class="form-control" placeholder="Enter cook Name."
+							ng-model="menu.editedMenu.menuCatagoryName" readonly>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Item Name:</label> <input
+							type="text" class="form-control" placeholder="Enter item Name."
+							ng-model="menu.editedMenu.itemName" id="itemName">
+					</div>
+					<div class="form-group">
+						<label class="control-label">Description:</label> <input type="text"
+							class="form-control" placeholder="Enter item description."
+							ng-model="menu.editedMenu.description">
+					</div>
+
+                    <div class="form-group">
+                      <div  data-ng-repeat="choice in choices">
+					      	<select  id="{{choice.id+'select'}}" ng-model="choice.unitName">
+							    <option 
+							            ng-repeat="menuUnit in menu.getMenuUnitList"
+							            value="{{menuUnit.unit}}" >
+							      {{menuUnit.unit}}
+							    </option>
+							</select>
+					      <input type="text" name="" ng-model="choice.price" placeholder="Enter price" id="{{choice.id+'input1'}}">
+					      <button class="remove" ng-show="$last" ng-click="removeChoice()">-</button>
+					   </div>
+					   <button class="addfields" ng-click="addNewChoice()">Add Unit</button>
+					</div> 
+
+					<div class="form-group">
+						<div>
+                             <input type="file" file-model="myFile"  class="btn btn-default btn-file"/>
+                        </div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear();">Close</button>
+					<button type="button" data-dismiss="modal" class="btn btn-default"
+						ng-click="menu.update();">Update</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</body>
+
+
+</html>
+
+
+<style>
+fieldset{
+    background: #FCFCFC;
+    padding: 16px;
+    border: 1px solid #D5D5D5;
+}
+.addfields{
+    margin: 10px 0;
+}
+
+#choicesDisplay {
+    padding: 10px;
+    background: rgb(227, 250, 227);
+    border: 1px solid rgb(171, 239, 171);
+    color: rgb(9, 56, 9);
+}
+.remove{
+    background: #C76868;
+    color: #FFF;
+    font-weight: bold;
+    font-size: 21px;
+    border: 0;
+    cursor: pointer;
+    display: inline-block;
+    padding: 4px 9px;
+    vertical-align: top;
+    line-height: 100%;   
+}
+input[type="text"],
+select{
+    padding:5px;
+}
+
+</style>
+

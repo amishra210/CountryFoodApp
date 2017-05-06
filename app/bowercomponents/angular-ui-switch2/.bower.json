@@ -1,0 +1,42 @@
+{
+  "name": "angular-ui-switch",
+  "version": "0.1.0",
+  "main": [
+    "angular-ui-switch.js",
+    "angular-ui-switch.css"
+  ],
+  "authors": [
+    "kpytang <kpytang@gmail.com>"
+  ],
+  "description": "iOS 7 style switch directive for AngularJS",
+  "keywords": [
+    "angular",
+    "angularjs",
+    "ui",
+    "directive",
+    "switch",
+    "on",
+    "off",
+    "button",
+    "checkbox",
+    "form"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/kpytang/angular-ui-switch",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "0.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.0",
+    "commit": "acfd0805e5124d2cb8e668b770727bb341c5d434"
+  },
+  "_source": "https://github.com/kpytang/angular-ui-switch.git",
+  "_target": "0.1.0",
+  "_originalSource": "angular-ui-switch2"
+}

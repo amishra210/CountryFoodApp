@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html ng-app="SpringApp">
+
+  <head>
+       <link rel="icon" href="image/fevicon.png" type="image/gif" sizes="16x16"> 
+
+        <link rel="stylesheet"
+          href="bowercomponents/bootstrap/dist/css/bootstrap.min.css">
+        <!-- <link rel="stylesheet"
+          href="bowercomponents/bootstrap/dist/css/bootstrap-theme.min.css"> -->
+        <link rel="stylesheet"
+          href="bowercomponents/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet"
+          href="bowercomponents/sweet-alert/sweet-alert.css">
+        <link rel="stylesheet"
+          href="bowercomponents/bootstrap-toastr/toastr.min.css">
+
+       <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700&subset=latin,cyrillic-ext,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/jquery.multilevelpushmenu.css">
+        <link rel="stylesheet" href="css/basichtml.css">
+       <link rel="stylesheet" href="css/autocomplete.css"> 
+       <link href="bowercomponents/angularMultipleSelect/build/multiple-select.min.css" rel="stylesheet">
+
+       <link rel="stylesheet" href="bowercomponents/angular-ui-switch2/angular-ui-switch.css"/>
+
+        <!--  <link rel="stylesheet" href="css/simple-autocomplete.css">-->
+        <script src="bowercomponents/jquery/dist/jquery.min.js"></script>
+        <script src="bowercomponents/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="bowercomponents/angularjs/angular.min.js"></script>
+        
+        <script
+        src="bowercomponents/angular-ui-router/release/angular-ui-router.min.js"></script>
+        <script src="bowercomponents/sweet-alert/sweet-alert.js"></script>
+        <script src="bowercomponents/sweet-alert/SweetAlert.js"></script>
+        <script src="bowercomponents/bootstrap-toastr/toastr.min.js"></script>
+        <script type="text/javascript" src="js/angular.integralui.min.js"></script>
+        <!-- <script type="text/javascript" src="js/angular.integralui.menu.min.js"></script> -->
+
+        <!-- <script type="text/javascript" src="http://oss.maxcdn.com/libs/modernizr/2.6.2/modernizr.min.js"></script> -->
+        <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+        <script src="bowercomponents/jquery/dist/jquery.min.js"></script>
+        <script src="js/jquery.multilevelpushmenu.min.js"></script>
+        <script type="text/javascript" src="js/basichtml.js"></script>
+
+
+      <script src="bowercomponents/esimakin-twbs-pagination/jquery.twbsPagination.min.js"></script> 
+     <script type="text/javascript" src="js/autocomplete.js"></script>
+     <script src="bowercomponents/angularMultipleSelect/build/multiple-select.min.js"></script> 
+
+     <script src="bowercomponents/angular-ui-switch2/angular-ui-switch.js"></script>
+      
+
+     <script src="app.js"></script>
+      
+      <!-- <script type="text/javascript" src="js/simple-autocomplete.js"></script> -->
+
+      <!-- login module-->
+<!-- <script src="module/login/login.routers.js"></script>
+      <script src="module/login/controllers/login.ctrl.js"></script>
+      <script src="module/login/services/login.service.js"></script>
+      <script src="module/login/views/login.html"></script>  -->
+      
+          <!-- user module-->
+      <script src="module/user/user.routers.js"></script>
+      <script src="module/user/controllers/user.ctrl.js"></script>
+      <script src="module/user/controllers/main.ctrl.js"></script>
+      <script src="module/user/services/user.service.js"></script>
+      <script src="module/user/services/core.service.js"></script>
+      <script src="module/user/services/app.service.js"></script>
+      <script src="module/user/views/user.html"></script> 
+
+        <!-- cook module-->
+      <script src="module/cook/cook.routers.js"></script>
+      <script src="module/cook/controllers/cook.ctrl.js"></script>
+      <script src="module/cook/services/cook.service.js"></script>
+      <script src="module/cook/views/cook.html"></script> 
+
+      <!-- catagory module-->
+      <script src="module/catagory/catagory.routers.js"></script>
+      <script src="module/catagory/controllers/catagory.ctrl.js"></script>
+      <script src="module/catagory/services/catagory.service.js"></script>
+      <script src="module/catagory/views/catagory.html"></script> 
+
+      <!-- menu module-->
+      <script src="module/menu/menu.routers.js"></script>
+      <script src="module/menu/controllers/menu.ctrl.js"></script>
+      <script src="module/menu/services/menu.service.js"></script>
+      <script src="module/menu/views/menu.html"></script> 
+      <script src="module/menu/directive/menu.directive.js"></script> 
+
+    <title>Country Food Admin Portal</title>
+  </head>
+
+  <body class="container-fluid">
+    
+
+  <!-- <div>
+    <nav class="navbar navbar-inverse">
+      <div class="navbar-brand" ui-sref="home">CMS Portal</div>
+    </nav>
+  </div> -->
+
+<!--  ng-hide="isUser" -->
+   <div style="display: flex;">
+      <div id="menu">
+            <nav>
+                <h2><i class="fa fa-reorder"></i>CMS Options</h2>
+                <ul>
+                    <li>
+                        <a ui-sref="cook"><i class="fa fa-child"></i>Cooks</a>
+                    </li>
+                    <li>
+                        <a ui-sref="catagory"><i class="fa fa-bug"></i>Catagories</a>
+                    </li>
+                    <li>
+                        <a ui-sref="menu"><i class="fa fa-building-o"></i>Menu</a>
+                    </li>  
+                </ul>   
+            </nav>
+    </div>
+<!-- ng-class="{{isUser ? 'col-xs-10' : 'col-xs-12' }}" -->
+
+    <div ui-view style="color: white; margin-top: 20px; width: 100%; margin-left: 10px; margin-right: 10px;"> </div>
+   </div>
+    
+    <div id="info" class="row">
+      <div class="col-xs-12">
+        <footer>
+          <p>&copy; CountryFood Copyright 2017</p>
+        </footer>
+      </div>
+    </div>
+
+  </body>
+
+
+</html>
+
+<style type="text/css">
+  
+a {
+    color: white;
+    text-decoration: none;
+}
+
+a:focus, a:hover {
+    color:white;
+}
+
+#info {
+    height: 25px;
+    position: fixed;
+    bottom:0%;
+    width:100%;
+    background-color: whitesmoke;
+    opacity: 1;
+}
+
+</style>

@@ -1,0 +1,7 @@
+{
+  "name": "countryfoodapp",
+  "version": "0.0.1",
+  "dependencies": {
+    "angular-ui-switch2":"0.1.0"
+  }
+}

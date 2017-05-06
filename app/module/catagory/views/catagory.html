@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+	<div class="container-fluid"> 
+	<div class="row" style="display: block; border: 1px dashed;line-height:30px;">
+	  All Categories --> Catagory
+	</div>
+
+		<div class="row" style="margin-top: 10px;">
+			<div class="col-xs-12">
+				<button type="button" class="btn btn-primary pull-right"
+					data-toggle="modal" data-target="#myModal" style="margin: 5px;">
+					<span style="padding-right: 2px;">Add</span><i class="fa fa-plus"
+						aria-hidden="true"></i>
+				</button>
+				<button type="button" class="btn btn-primary pull-right"
+					data-toggle="modal" data-target="#groupModal" style="margin: 5px;" ng-click="catagory.getAllCatagory();">
+					<span style="padding-right: 2px;">Groupping / sequencing</span><i class="fa fa-plus"
+						aria-hidden="true"></i>
+				</button>
+			</div>
+		</div> 
+
+
+		<div class="portlet-body" style="background-color: none;"> 
+			<div style="margin-top: 10px;">
+				<table class="table  table-bordered">
+					<thead>
+						<tr>
+							<th>S.No</th>
+							<th>Catagory Name</th>
+							<th>Description</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-ng-repeat="catagory1 in catagory.catagoryList">
+							<td class="bold-text"><span>{{catagory.sno+$index +1}}</span></td>
+							<td class="bold-text"><span ng-bind="catagory1.name"></span></td>
+							<td class="bold-text"><span ng-bind="catagory1.description"></span></td>					
+							<td align="center"><span> <a
+									href="#"
+									ng-click="catagory.getEditcatagory(catagory1.id);"
+									data-toggle="modal" data-target="#editmodel"> <i
+										class="fa fa-edit"></i></a>
+							</span> <span> <a href="#"
+									ng-click="catagory.deletecatagory(catagory1.id);"> <i
+										class="fa fa-times" aria-hidden="true"></i></a>
+							</span></td>
+						</tr>
+					</tbody>
+				</table>
+
+               
+                <ul class="pull-right" id="pagination-demo" class="pagination-sm"></ul>
+
+			</div>
+	</div>
+	</div> 
+
+		<!-- Modal -->
+	<div class="modal fade" id="myModal" role="dialog" style="color: black;">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Add catagory</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label class="control-label">catagory Name:</label> <input
+							type="text" class="form-control" placeholder="Enter catagory Name."
+							ng-model="catagory.info.name">
+					</div>
+					<div class="form-group">
+						<label class="control-label">Description:</label> <input type="text"
+							class="form-control" placeholder="Enter Description"
+							ng-model="catagory.info.description">
+					</div>		
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear();">Close</button>
+					<button type="button" data-dismiss="modal" class="btn btn-default"
+						ng-click="catagory.add();">Add</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+
+		<!-- editmodel Modal -->
+	<div class="modal fade" id="editmodel" role="dialog" style="color: black;">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Update catagory</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label class="control-label">catagory Name:</label> <input
+							type="text" class="form-control" placeholder="Enter catagory Name."
+							ng-model="catagory.editInfo.name">
+					</div>
+					<div class="form-group">
+						<label class="control-label">Description:</label> <input type="text"
+							class="form-control" placeholder="Enter Description"
+							ng-model="catagory.editInfo.description">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear();">Close</button>
+					<button type="button" data-dismiss="modal" class="btn btn-default"
+						ng-click="catagory.edit();">Update</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+			<!-- groupModal Modal -->
+	<div class="modal fade" id="groupModal" role="dialog" style="color: black;">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Grouping and Sequencing</h4>
+				</div>
+				<div class="modal-body">
+				    <div class="form-group">
+						<label class="control-label">Group Name:</label> <input
+							type="text" class="form-control" placeholder="Enter catagory Name."
+							ng-model="catagory.groupingAndSeq.groupName">
+					</div>
+                    <div class="form-group">
+                       <multiple-autocomplete ng-model="selectedList"
+                           object-property="name"
+                           suggestions-arr="optionsList">
+                       </multiple-autocomplete>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear();">Close</button>
+					<button type="button" data-dismiss="modal" class="btn btn-default"
+						ng-click="catagory.doneGroupingAndSequencing();">Done</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</body>
+
+
+</html>
+
+
+<style>
+/*#info {
+    height: 25px;
+    position: fixed;
+    bottom:0%;
+    width:100%;
+    background-color: whitesmoke;
+    opacity: 1;
+}
+*/
+
+.multiSelect {
+    overflow: auto;
+}
+.multiSelect .select {
+    margin-right: 20px;
+    float: left;
+}
+.multiSelect .text {
+    clear: both;
+    font-size: 11px;
+}
+.multiSelect label::after {
+    content: ":";
+}
+.btn.mover {
+    display: block;
+    margin-top: 25px;
+    vertical-align: top;
+}
+.btn.mover.left {
+    padding: 3px 8px 2px 6px;
+}
+.btn.mover.right {
+    margin-top: 24px;
+    padding: 3px 7px 2px;
+}
+.btn.mover i {
+    margin: 0;
+}
+
+/* demo css */
+li {
+    list-style-type: disc;
+}
+}
+
+</style>
+
+

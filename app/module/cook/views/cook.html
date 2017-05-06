@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+	<div class="container-fluid"> 
+	<div class="row" style="display: block; border: 1px dashed;line-height:30px;">
+	  All Categories --> cook
+	</div>
+
+		<div class="row" style="margin-top: 10px;">
+			<div class="col-xs-12">
+				<button type="button" class="btn btn-primary pull-right"
+					data-toggle="modal" data-target="#myModal">
+					<span style="padding-right: 2px;">Add</span><i class="fa fa-plus"
+						aria-hidden="true"></i>
+				</button>
+				<button type="button" class="btn btn-primary pull-right"
+					data-toggle="modal" data-target="#specialModal" style="margin: 0px 5px 0px 5px;">
+					<span style="padding-right: 2px;">Add Speciality</span><i class="fa fa-plus"
+						aria-hidden="true"></i>
+				</button>
+			</div>
+		</div> 
+		<div class="portlet-body" style="background-color: none;"> 
+			<div style="margin-top: 10px;">
+				<table class="table  table-bordered">
+					<thead>
+						<tr>
+							<th>S.No</th>
+							<th>Cook Name</th>
+							<th>Speciality</th>
+							<th>Description</th>
+							<th>Gender</th>
+							<th>Mobile No</th>
+							<th>Address</th>
+							<th>Photo</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-ng-repeat="cook1 in cook.cookList">
+							<td class="bold-text"><span>{{cook.sno+$index +1}}</span></td>
+							<td class="bold-text"><span ng-bind="cook1.name"></span></td>
+							<td class="bold-text"><span ng-bind="cook1.specility"></span></td>
+							<td class="bold-text"><span ng-bind="cook1.description"></span></td>
+							<td class="bold-text"><span ng-bind="cook1.gender"></span></td>
+							<td class="bold-text"><span ng-bind="cook1.mobileno"></span></td>
+							<td class="bold-text"><span ng-bind="cook1.address"></span></td>
+							<td class="bold-text" style="width: 10%;">
+							<span ng-if="cook1.imagePath.length>0">
+                             <img ng-src="{{cook1.imageURL}}" style="width:100%;">
+							</span></td>
+							<td align="center"><span> <a
+									href="#"
+									ng-click="cook.getEditCook(cook1.id);"
+									data-toggle="modal" data-target="#editmodel"> <i
+										class="fa fa-edit"></i></a>
+							</span> <span> <a href="#"
+									ng-click="cook.deleteCook(cook1.id);"> <i
+										class="fa fa-times" aria-hidden="true"></i></a>
+							</span></td>
+						</tr>
+					</tbody>
+				</table>
+              <ul class="pull-right" id="pagination-demo" class="pagination-sm"></ul>
+			</div>
+	</div>
+	</div> 
+
+		<!-- Modal -->
+	<div class="modal fade" id="myModal" role="dialog" style="color: black;">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Add Cook</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label class="control-label">Cook Name:</label> <input
+							type="text" class="form-control" placeholder="Enter Cook Name."
+							ng-model="cook.info.name">
+					</div>
+					<div class="form-group">
+						<label class="control-label">Speciality:</label> <input type="text"
+							class="form-control" placeholder="Enter cook specility."
+							ng-model="cook.info.specility">
+					</div>
+					<div class="form-group">
+					<label class="control-label">Cast:</label> <br/>
+					      	<select ng-model="cook.info.cast">
+							    <option 
+							            ng-repeat="cast in cook.castList"
+							            value="{{cast.cast}}" >
+							      {{cast.cast}}
+							    </option>
+							</select>
+					</div> 
+					<div class="form-group">
+					        <label class="control-label">Availability:</label> <br/>
+							<switch id="enabled" name="enabled" ng-model="cook.info.availability" class="green"></switch>
+					</div> 
+					<div class="form-group">
+						<div>
+						      <label class="control-label">Cook's Photo:</label> <br/>
+                             <input type="file" file-model="cook.myFile"  class="btn btn-default btn-file"/>
+                        </div>
+					</div>
+					<div class="form-group">
+					    <label class="control-label">Gender:</label> <br/>
+						<label class="radio-inline"> <input name="radioGroup"
+							id="radio1" value="Male" type="radio" ng-model="cook.info.gender">
+							Male
+						</label> <label class="radio-inline"> <input name="radioGroup"
+							id="radio2" value="Female" checked="" type="radio"
+							ng-model="cook.info.gender"> Female
+						</label>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Mobile No.:</label> <input type="text"
+							class="form-control" placeholder="Enter Mobile No."
+							ng-model="cook.info.mobileno">
+					</div>
+					<div class="form-group">
+						<label class="control-label">Description:</label> <input type="text"
+							class="form-control" placeholder="Enter Description"
+							ng-model="cook.info.description">
+					</div>
+					<div class="form-group">
+						<label class="control-label">Address:</label> <input type="text"
+							class="form-control" placeholder="Enter Address."
+							ng-model="cook.info.address">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear();">Close</button>
+					<button type="button" data-dismiss="modal" class="btn btn-default"
+						ng-click="cook.add();">Add</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+
+		<!-- editmodel Modal -->
+	<div class="modal fade" id="editmodel" role="dialog" style="color: black;">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Update Cook</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label class="control-label">Cook Name:</label> <input
+							type="text" class="form-control" placeholder="Enter Cook Name."
+							ng-model="cook.editInfo.name">
+					</div>
+					<div class="form-group">
+						<label class="control-label">Speciality:</label> <input type="text"
+							class="form-control" placeholder="Enter cook specility."
+							ng-model="cook.editInfo.specility">
+					</div>
+					<div class="form-group">
+					<label class="control-label">Cast:</label> <br/>
+					      	<select ng-model="cook.editInfo.cast">
+							    <option 
+							            ng-repeat="cast in cook.castList"
+							            value="{{cast.cast}}" >
+							      {{cast.cast}}
+							    </option>
+							</select>
+					</div> 
+					<div class="form-group">
+					        <label class="control-label">Availability:</label> <br/>
+							<switch id="enabled" name="enabled" ng-model="cook.editInfo.availability" class="green"></switch>
+					</div> 
+					<div class="form-group">
+						<div>
+						      <label class="control-label">Cook's Photo:</label> <br/>
+                             <input type="file" file-model="cook.myFile"  class="btn btn-default btn-file" />
+                        </div>
+					</div>
+					<div class="form-group">
+						<label class="radio-inline"> <input name="radioGroup"
+							id="radio1" value="Male" type="radio" ng-model="cook.editInfo.gender">
+							Male
+						</label> <label class="radio-inline"> <input name="radioGroup"
+							id="radio2" value="Female" checked="" type="radio"
+							ng-model="cook.editInfo.gender"> Female
+						</label>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Mobile No.:</label> <input type="text"
+							class="form-control" placeholder="Enter Mobile No."
+							ng-model="cook.editInfo.mobileno">
+					</div>
+					<div class="form-group">
+						<label class="control-label">Description:</label> <input type="text"
+							class="form-control" placeholder="Enter Description"
+							ng-model="cook.editInfo.description">
+					</div>
+					<div class="form-group">
+						<label class="control-label">Address:</label> <input type="text"
+							class="form-control" placeholder="Enter Address."
+							ng-model="cook.editInfo.address">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear();">Close</button>
+					<button type="button" data-dismiss="modal" class="btn btn-default"
+						ng-click="cook.edit();">Update</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+
+		<!-- special Modal -->
+	<div class="modal fade" id="specialModal" role="dialog" style="color: black;">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Add Cook Speciality</h4>
+				</div>
+				<div class="modal-body">
+				<div class="form-group">
+					<label class="control-label">Speciality:</label> <br/>
+					      	<select ng-model="cook.specility.speciality">
+							    <option 
+							            ng-repeat="speciality in cook.specialityList"
+							            value="{{speciality.speciality}}" >
+							      {{speciality.speciality}}
+							    </option>
+							</select>
+					</div> 
+					<div class="form-group"> 
+						<label class="control-label">Cook Name:</label>
+                        <autocomplete ng-model="cookmodel" data="cook.autoCookList" on-type="cook.searchCook" on-select="cook.cookSelect" style="color: black;line-height: 100%;">
+                        </autocomplete>
+					</div>
+					<div class="form-group"> 
+						 <button type="button"  class="btn btn-default" ng-click="cook.getMenuForSpeciality();">
+						 Get Menu</button> 
+					</div>
+					 <div class="form-group">
+					 <label class="control-label">Menu:</label>
+                       <multiple-autocomplete ng-model="menuSelectedList"
+                           object-property="name"
+                           suggestions-arr="menuOptionsList">
+                       </multiple-autocomplete>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear();">Close</button>
+					<button type="button" data-dismiss="modal" class="btn btn-default"
+						ng-click="cook.updateSpeciality();">Update Speciality</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+</body>
+
+
+</html>
+
+
+<style>
+#info {
+    height: 25px;
+    position: fixed;
+    bottom:0%;
+    width:100%;
+    background-color: whitesmoke;
+    opacity: 1;
+}
+
+</style>
+
